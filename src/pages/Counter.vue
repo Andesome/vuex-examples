@@ -17,14 +17,18 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Counter",
-  computed: mapGetters([
-    "isOdd"
-  ]),
-  methods: mapActions([
-    "increment", 
-    "decrement",
-    "incrementAsync"
-  ])
+  computed: {
+    ...mapGetters({
+      isOdd: "counter/isOdd"
+    })
+  },
+  methods: {
+    ...mapActions({
+      increment: "counter/increment",
+      decrement: "counter/decrement",
+      incrementAsync: "counter/incrementAsync"
+    })
+  }
 };
 </script>
 
