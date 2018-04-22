@@ -8,8 +8,24 @@
     >
       {{product.title}} - ￥{{product.price}}&nbsp;&nbsp;&nbsp;&nbsp; 库存：{{product.inventory}}
       &nbsp;&nbsp;
-      <button @click="addProductToCart(product)">加入购物车</button>
+      <button @click="addProductToCart(product)" :disabled="!product.inventory">加入购物车</button>
     </div>
+
+    <!-- h2 购物车 -->
+    <h2> 购物车商品</h2>
+    <ul>
+      <li v-for="cart in cartList" :key="cart.id">
+        名称：{{cart.title}}   ，     
+        数量：{{cart.quantity}}
+      </li>
+    </ul>
+
+    <!-- 结算 -->
+     <div>
+       <span>总金额：{{cartTotalPrice}}</span>
+       &nbsp;&nbsp;
+       <button @click="checkout">结算</button>
+     </div>
   </div>
 </template>
 
@@ -20,12 +36,15 @@ export default {
   name: "Shop",
   computed: {
     ...mapGetters({
-      productList: "product/productList"
+      productList: "product/productList",
+      cartList:"cart/cartList",
+      cartTotalPrice:'cart/cartTotalPrice'
     })  
   },
   methods:{
     ...mapActions({
-      addProductToCart:'cart/addProductToCart'
+      addProductToCart:'cart/addProductToCart',
+      checkout:'cart/checkout'
     })
   }
 };
